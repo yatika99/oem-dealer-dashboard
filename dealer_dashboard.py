@@ -120,3 +120,4 @@
  "nbformat": 4,
  "nbformat_minor": 5
 }
+streamlit run dealer_dashboard.py
