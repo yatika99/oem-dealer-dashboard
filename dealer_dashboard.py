@@ -1,123 +1,87 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "c0c49d13-06f3-41bd-8485-ac826a67a34a",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import streamlit as st\n",
-    "import pandas as pd\n",
-    "import plotly.express as px"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "fc119cad-be9b-47ca-9d7f-f5ebf82aa5dd",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "st.set_page_config(page_title=\"OEM Dealer Dashboard\", layout=\"wide\")\n",
-    "\n",
-    "# ----------- Dealer Info Section ----------- #\n",
-    "st.title(\"🚗 OEM Dealer Performance Management System\")\n",
-    "st.subheader(\"📌 Dealer Overview\")\n",
-    "\n",
-    "dealer_info = {\n",
-    "    \"Dealer Code\": \"DLR-001\",\n",
-    "    \"Dealer Type\": \"3S (Sales, Service, Spares)\",\n",
-    "    \"Region\": \"North\",\n",
-    "    \"Evaluation Score\": 87,\n",
-    "    \"Way Forward\": \"Greenfield\",\n",
-    "    \"Category\": \"PIP\"\n",
-    "}\n",
-    "\n",
-    "cols = st.columns(6)\n",
-    "for i, (k, v) in enumerate(dealer_info.items()):\n",
-    "    cols[i].metric(label=k, value=str(v))\n",
-    "\n",
-    "# ----------- Tabs ----------- #\n",
-    "tab1, tab2, tab3, tab4, tab5 = st.tabs([\"📊 Sales\", \"🛠️ Service\", \"🏢 CI/SI\", \"🎓 Training\", \"⚠️ Deviations\"])\n",
-    "\n",
-    "# ----------- Tab 1: Sales ----------- #\n",
-    "with tab1:\n",
-    "    st.subheader(\"Sales KPIs\")\n",
-    "    col1, col2, col3 = st.columns(3)\n",
-    "    col1.number_input(\"Sales (Units)\", value=150)\n",
-    "    col2.number_input(\"Sales Value (₹ Lakhs)\", value=120)\n",
-    "    col3.text_input(\"Retail vs Wholesale Ratio\", \"1.2\")\n",
-    "\n",
-    "    col4, col5, col6 = st.columns(3)\n",
-    "    col4.number_input(\"Fund Gap (₹)\", value=500000)\n",
-    "    col5.slider(\"Market Share (%)\", 0, 100, 18)\n",
-    "    col6.selectbox(\"MS Trend\", [\"Growing\", \"Declining\", \"Stagnant\"])\n",
-    "\n",
-    "    sales_data = pd.DataFrame({\n",
-    "        \"Quarter\": [\"Q1\", \"Q2\", \"Q3\", \"Q4\"],\n",
-    "        \"Retail\": [120, 150, 130, 160],\n",
-    "        \"Wholesale\": [100, 120, 115, 130]\n",
-    "    })\n",
-    "    fig = px.bar(sales_data, x=\"Quarter\", y=[\"Retail\", \"Wholesale\"], barmode=\"group\", title=\"Retail vs Wholesale\")\n",
-    "    st.plotly_chart(fig, use_container_width=True)\n",
-    "\n",
-    "# ----------- Tab 2: Service ----------- #\n",
-    "with tab2:\n",
-    "    st.subheader(\"Service KPIs\")\n",
-    "    st.number_input(\"Service Load (vehicles/month)\", value=450)\n",
-    "    st.slider(\"Repeat Jobs (%)\", 0, 100, 8)\n",
-    "    st.slider(\"Parts Availability (%)\", 0, 100, 92)\n",
-    "    st.slider(\"Customer Satisfaction Index (CSI)\", 0, 100, 85)\n",
-    "\n",
-    "# ----------- Tab 3: CI/SI ----------- #\n",
-    "with tab3:\n",
-    "    st.subheader(\"CI & SI Compliance\")\n",
-    "    st.selectbox(\"Digital Board Status\", [\"Installed\", \"Pending\", \"Not Applicable\"])\n",
-    "    st.selectbox(\"Facia Installation\", [\"Complete\", \"Partial\", \"Not Started\"])\n",
-    "    st.selectbox(\"Seating Area Setup\", [\"Done\", \"Pending\"])\n",
-    "    st.selectbox(\"Information Boards\", [\"Available\", \"Missing\"])\n",
-    "\n",
-    "# ----------- Tab 4: Training ----------- #\n",
-    "with tab4:\n",
-    "    st.subheader(\"Training Tracker\")\n",
-    "    st.multiselect(\"Completed Trainings\", [\"Sales Excellence\", \"Service Protocol\", \"DMS Training\"])\n",
-    "    st.multiselect(\"Ongoing Trainings\", [\"Electric Vehicle Workshop\", \"CRM Tool Training\"])\n",
-    "    st.multiselect(\"Planned Trainings\", [\"CI Compliance\", \"Dealer Audit Prep\"])\n",
-    "\n",
-    "# ----------- Tab 5: Deviations ----------- #\n",
-    "with tab5:\n",
-    "    st.subheader(\"Deviation Monitoring\")\n",
-    "    st.text_area(\"Stock Variance\", \"2.5% below target\")\n",
-    "    st.text_area(\"Target vs Actual Sales\", \"15% below Q2 target\")\n",
-    "    st.text_area(\"Service Backlogs\", \"27 pending cases >7 days\")\n",
-    "    st.text_area(\"Unresolved Complaints\", \"3 escalated to OEM\")\n",
-    "\n",
-    "st.markdown(\"---\")\n",
-    "st.caption(\"© 2025 OEM Dealer Analytics | Internal Use Only\")\n"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.11.7"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
+streamlit run dealer_dashboard.py
+# dealer_dashboard.py
+
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+
+# Streamlit page settings
+st.set_page_config(page_title="OEM Dealer Dashboard", layout="wide")
+
+# Title
+st.title("🚗 OEM Dealer Performance Management System")
+st.subheader("📌 Dealer Overview")
+
+# Dealer Info Section
+dealer_info = {
+    "Dealer Code": "DLR-001",
+    "Dealer Type": "3S (Sales, Service, Spares)",
+    "Region": "North",
+    "Evaluation Score": 87,
+    "Way Forward": "Greenfield",
+    "Category": "PIP"
 }
 
+cols = st.columns(6)
+for i, (k, v) in enumerate(dealer_info.items()):
+    cols[i].metric(label=k, value=str(v))
+
+# Tabs for different sections
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["📊 Sales", "🛠️ Service", "🏢 CI/SI", "🎓 Training", "⚠️ Deviations"])
+
+# Sales Tab
+with tab1:
+    st.subheader("Sales KPIs")
+    col1, col2, col3 = st.columns(3)
+    col1.number_input("Sales (Units)", value=150)
+    col2.number_input("Sales Value (₹ Lakhs)", value=120)
+    col3.text_input("Retail vs Wholesale Ratio", "1.2")
+
+    col4, col5, col6 = st.columns(3)
+    col4.number_input("Fund Gap (₹)", value=500000)
+    col5.slider("Market Share (%)", 0, 100, 18)
+    col6.selectbox("Market Share Trend", ["Growing", "Declining", "Stagnant"])
+
+    sales_data = pd.DataFrame({
+        "Quarter": ["Q1", "Q2", "Q3", "Q4"],
+        "Retail": [120, 150, 130, 160],
+        "Wholesale": [100, 120, 115, 130]
+    })
+
+    fig = px.bar(sales_data, x="Quarter", y=["Retail", "Wholesale"], barmode="group",
+                 title="Retail vs Wholesale Performance")
+    st.plotly_chart(fig, use_container_width=True)
+
+# Service Tab
+with tab2:
+    st.subheader("Service KPIs")
+    st.number_input("Service Load (vehicles/month)", value=450)
+    st.slider("Repeat Jobs (%)", 0, 100, 8)
+    st.slider("Parts Availability (%)", 0, 100, 92)
+    st.slider("Customer Satisfaction Index (CSI)", 0, 100, 85)
+
+# CI/SI Tab
+with tab3:
+    st.subheader("CI & SI Compliance")
+    st.selectbox("Digital Board Status", ["Installed", "Pending", "Not Applicable"])
+    st.selectbox("Facia Installation", ["Complete", "Partial", "Not Started"])
+    st.selectbox("Seating Area Setup", ["Done", "Pending"])
+    st.selectbox("Information Boards", ["Available", "Missing"])
+
+# Training Tab
+with tab4:
+    st.subheader("Training Tracker")
+    st.multiselect("Completed Trainings", ["Sales Excellence", "Service Protocol", "DMS Training"])
+    st.multiselect("Ongoing Trainings", ["Electric Vehicle Workshop", "CRM Tool Training"])
+    st.multiselect("Planned Trainings", ["CI Compliance", "Dealer Audit Prep"])
+
+# Deviations Tab
+with tab5:
+    st.subheader("Deviation Monitoring")
+    st.text_area("Stock Variance", "2.5% below target")
+    st.text_area("Target vs Actual Sales", "15% below Q2 target")
+    st.text_area("Service Backlogs", "27 pending cases >7 days")
+    st.text_area("Unresolved Complaints", "3 escalated to OEM")
+
+st.markdown("---")
+st.caption("© 2025 OEM Dealer Analytics | Internal Use Only")
