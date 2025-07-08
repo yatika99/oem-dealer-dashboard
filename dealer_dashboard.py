@@ -1,26 +1,4 @@
 # dealer_dashboard.py
-import subprocess
-import sys
-
-# Auto-install missing dependencies
-required_packages = {
-    'streamlit': '1.32.0',
-    'pandas': '2.1.4',
-    'plotly': '5.18.0'
-}
-
-def install(package, version=None):
-    if version:
-        package += f'=={version}'
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-for package, version in required_packages.items():
-    try:
-        __import__(package)
-    except ImportError:
-        install(package, version)
-
-# Main App Code
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -105,11 +83,3 @@ with tab5:
 
 st.markdown("---")
 st.caption("© 2025 OEM Dealer Analytics | Internal Use Only")
-
-# For Streamlit Cloud deployment (hidden instructions)
-"""
-HOW TO USE:
-1. Save this as dealer_dashboard.py
-2. Run locally: streamlit run dealer_dashboard.py
-3. Deploy to Streamlit Cloud by pushing to GitHub
-"""
