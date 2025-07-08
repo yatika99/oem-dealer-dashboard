@@ -1,21 +1,10 @@
-# dealer_dashboard.py
+# dealer_dashboard.py - Plotly-Free Version
 import streamlit as st
 import pandas as pd
+import numpy as np
 
-# Try importing plotly with fallback
-try:
-    import plotly.express as px
-except ImportError:
-    st.warning("Installing missing 'plotly' package...")
-    import subprocess
-    import sys
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "plotly"])
-    try:
-        import plotly.express as px
-    st.experimental_rerun()
-
-# Rest of your app remains exactly the same...
-
+# Streamlit page settings
+st.set_page_config(page_title="OEM Dealer Dashboard", layout="wide")
 
 # Title
 st.title("🚗 OEM Dealer Performance Management System")
@@ -56,10 +45,10 @@ with tab1:
         "Retail": [120, 150, 130, 160],
         "Wholesale": [100, 120, 115, 130]
     })
-
-    fig = px.bar(sales_data, x="Quarter", y=["Retail", "Wholesale"], barmode="group",
-                 title="Retail vs Wholesale Performance")
-    st.plotly_chart(fig, use_container_width=True)
+    
+    # Using native Streamlit bar chart
+    st.bar_chart(sales_data.set_index("Quarter"), 
+                 color=["#FF0000", "#0000FF"])
 
 # Service Tab
 with tab2:
