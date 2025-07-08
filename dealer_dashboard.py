@@ -1,10 +1,20 @@
 # dealer_dashboard.py
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 
-# Streamlit page settings
-st.set_page_config(page_title="OEM Dealer Dashboard", layout="wide")
+# Try importing plotly with fallback
+try:
+    import plotly.express as px
+except ImportError:
+    st.warning("Installing missing 'plotly' package...")
+    import subprocess
+    import sys
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "plotly"])
+    import plotly.express as px
+    st.experimental_rerun()
+
+# Rest of your app remains exactly the same...
+[PASTE THE ENTIRE ORIGINAL CODE HERE FROM LINE 7 TO THE END]
 
 # Title
 st.title("🚗 OEM Dealer Performance Management System")
