@@ -1,4 +1,4 @@
-streamlit run dealer_dashboard.py
+
 # dealer_dashboard.py
 
 import streamlit as st
