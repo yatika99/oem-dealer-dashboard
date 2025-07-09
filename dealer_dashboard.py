@@ -101,7 +101,7 @@ with tab2:
     with cols[3]:
         st.metric("Inventory Days", "28", "-3 vs LY")
     
-    # Competitor Analysis
+    # Competitor Analysis - CORRECTED SECTION
     st.subheader("Competitor Benchmarking")
     comp_data = pd.DataFrame({
         'Brand': ['OEM', 'Competitor A', 'Competitor B', 'Competitor C'],
@@ -109,8 +109,10 @@ with tab2:
         'Growth LY': [8.5, 5.2, 12.1, -2.4],
         'MS Change': [0.7, -0.3, 1.1, -1.5]
     })
-    st.dataframe(comp_data.style
-                .background_gradient(subset=['Growth LY'], cmap='RdYlGn')
+    st.dataframe(
+        comp_data.style
+        .background_gradient(subset=['Growth LY'], cmap='RdYlGn')
+    )  # Properly closed parenthesis
     
     # Market Share Trend
     st.subheader("Market Share Trend (Last 6 Months)")
@@ -121,6 +123,8 @@ with tab2:
         'Comp B': [14.5, 14.8, 15.1, 15.3, 15.5, 15.6]
     })
     st.line_chart(ms_data.set_index('Month'))
+    
+   
 
 # ===== MANPOWER TAB =====
 with tab3:
